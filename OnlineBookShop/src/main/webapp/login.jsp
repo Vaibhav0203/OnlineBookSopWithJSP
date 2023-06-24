@@ -13,9 +13,21 @@
 	<jsp:setProperty name="lb" property="email" param="email"/>
 	<jsp:setProperty name="lb" property="password" param="password"/>
 	<% lb.isValidate(); %>
-	<% if(lb.getCust() != null) { %>
-		<jsp:forward page="subjects.jsp"/>	
-	<% } else { %>
+	<%
+	   if(lb.getCust() != null)
+	   {
+		   if(lb.getCust().getRole().equals("ROLE_CUSTOMER")) 
+		   		{ %>
+					<jsp:forward page="subjects.jsp"/>	
+				<% } 
+			if(lb.getCust().getRole().equals("ROLE_ADMIN"))
+				{
+				%>
+				<jsp:forward page="books.jsp"/>	
+				<%
+				}
+	   }
+	else { %>
 		Invalid email or password. <br/><br/>
 		<a href="index.jsp">Login Again</a>
 	<% } %>
